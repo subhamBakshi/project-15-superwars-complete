@@ -122,7 +122,12 @@ class Superwar {
     // Check for fight
     isFight = () => {
         // Type your code here
-
+        var fight_filter = this.players.filter(player => player.selected && player.strength > 0);
+        if (fight_filter.length == 2) {
+            return "clash";
+        } else {
+            return "peace";
+        }
         // return  'clash' or 'peace';
     }
 
@@ -149,15 +154,23 @@ class Superwar {
         // Find the winner if exists return type hero or villain
         // If winner dosen't exists then return endure
         // Type your code here
-
-      return result;
+        let hero_strength = this.totalStrength('hero');
+        let villain_strength = this.totalStrength('villain')
+        if (villain_strength == 0) {
+            return "hero";
+        } else if (hero_strength == 0) {
+            return "villain";
+        } else {
+            return "endure";
+        }
     }
 
     // Find total strength of a team
     totalStrength = (type) => {
         // Calculate and return the total strength of the team
         // Type your code here
-
+        var player_type_filter = this.players.filter(player => player.type == type);
+        var strength = player_type_filter.reduce((totalStrength, player) => totalStrength + player.strength, 0);
         return strength;
     }
 
